@@ -1,0 +1,17 @@
+{
+  "id": "bluetoothLauncher",
+  "name": "Bluetooth Launcher",
+  "description": "Quickly connect, disconnect, and manage Bluetooth devices all from the launcher",
+  "version": "1.0.0",
+  "author": "Aniket-Bhat",
+  "icon": "bluetooth",
+  "type": "launcher",
+  "viewMode": "list",
+  "component": "./BluetoothLauncher.qml",
+  "settings": "./BluetoothSettings.qml",
+  "permissions": [
+    "settings_read",
+    "settings_write",
+    "process"
+  ]
+}
