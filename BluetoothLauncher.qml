@@ -389,9 +389,16 @@ QtObject {
         onExited: (code, status) => root.refreshItems()
     }
 
+    // Discovery holder — must STAY RUNNING for the whole scan window.
+    // Plain `bluetoothctl scan on` exits immediately and BlueZ tears the
+    // discovery session down with it (Discovering flips back to no), so hold
+    // the client alive with --timeout (duration + margin; scanTimer below
+    // kills it at exactly _countdownDuration, scanOffProc cleans up).
+    // NOTE: do NOT use `btmgmt find` here — it needs root for the mgmt
+    // socket and dies silently under the user session (proven 2026-09-19).
     property var _scanProc: Process {
         id: scanProc
-        command: ["bluetoothctl", "scan", "on"]
+        command: ["bluetoothctl", "--timeout", String(root._countdownDuration + 5), "scan", "on"]
     }
 
     property var _scanOffProc: Process {
